@@ -176,7 +176,7 @@ if __name__ == '__main__':
     parser.add_argument("-dropout", type=float, default=0.5, help="dropout rate for final representations")
     parser.add_argument("-emb_name", type=str, default="glove_840B", help="name of word embedding")
     # Note: tagging schema is OT in the original data record
-    parser.add_argument("-tagging_schema", type=str, default="BIO", help="tagging schema")
+    parser.add_argument("-tagging_schema", type=str, default="BIEOS", help="tagging schema")
     parser.add_argument("-rnn_type", type=str, default="LSTM",
                         help="type of rnn unit, currently only LSTM and GRU are supported")
     parser.add_argument("-sgd_lr", type=float, default=0.1,
@@ -201,7 +201,7 @@ if __name__ == '__main__':
     emb2path = {
         'glove_6B': '/projdata9/info_fil/lixin/Research/OTE/embeddings/glove_6B_300d.txt',
         'glove_42B': '/projdata9/info_fil/lixin/Research/OTE/embeddings/glove_42B_300d.txt',
-        'glove_840B': '/projdata9/info_fil/lixin/Research/OTE/embeddings/glove_840B_300d.txt',
+        'glove_840B': '/data/glove.840B.300d.txt',
         'glove_27B100d': '/projdata9/info_fil/lixin/Research/OTE/embeddings/glove_twitter_27B_100d.txt',
         'glove_27B200d': '/projdata9/info_fil/lixin/Research/OTE/embeddings/glove_twitter_27B_200d.txt',
         'yelp_rest1': '/projdata9/info_fil/lixin/Research/yelp/yelp_vec_200_2_win5_sent.txt',

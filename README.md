@@ -1,5 +1,38 @@
 # E2E-TBSA
-Source code of our AAAI paper on End-to-End Target/Aspect-Based Sentiment Analysis.
+Source code of our AAAI paper on End-to-End Target/Aspect-Based Sentiment Analysis, forked
+from [lixin4ever](https://github.com/lixin4ever/E2E-TBSA). In this fork a `DockerFile` is 
+added that can be used to run the code in this repository out of the box. 
+
+# Using the docker image
+
+The DockerFile automates all steps in the below Manual Installation section. This includes
+installing dependencies, and installing the default embedding. Some steps do not match
+the description below. For instance, `DyNet 2.0.2` is not installed, instead, `DyNet` is 
+installed from GitHub and compiled using `cython`, `build-essential` and `cmake`.
+
+Please note that building for the first time takes a while, and results in a large image.
+The first step of the docker build is downloading and unpacking the embedding. The
+download itself is 2 GB, and the unpackked embedding has a size of ~5GB. 
+
+Build using:
+
+```
+docker build -t 2e2-absa
+```
+
+Run using: 
+```
+docker run --rm -it 2e2-absa <ARGS>
+```
+
+For `<ARGS>` see `main.py`.
+
+## Issues
+
+Note that only the default embedding is supported, using other embeddings wil result in
+an error. In case you want to use additional embeddings, please extend the DockerFile. 
+
+# Manual installation
 
 ## Requirements
 * Python 3.6
@@ -20,8 +53,8 @@ Source code of our AAAI paper on End-to-End Target/Aspect-Based Sentiment Analys
 * OS: REHL Server 6.4 (Santiago)
 * CPU: Intel Xeon CPU E5-2620 (Yes, we do not use GPU to gurantee the deterministic outputs)
 
-## Citation
-If the code is used in your research, please star this repo and cite our paper as follows:
+# Citation
+If the code is used in your research, please star this repo and cite the original paper as follows:
 ```
 @inproceedings{li2019unified,
   title={A unified model for opinion target extraction and target sentiment prediction},

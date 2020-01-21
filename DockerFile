@@ -1,0 +1,22 @@
+FROM python:3.6-slim
+
+RUN apt-get update && apt-get install -y wget unzip
+
+# This command download the embedding from the GloVe site. https://nlp.stanford.edu/projects/glove/
+# Because of the size of this download, this step might take a while. If you have the embedding 
+# locally you can also modify this step to copy it in. 
+RUN mkdir /data && wget http://nlp.stanford.edu/data/glove.840B.300d.zip -O /data/embedding.zip
+
+RUN unzip /data/embedding.zip -d /data && rm -rf /data/embedding.zip
+
+RUN apt-get install -y git build-essential cmake
+
+WORKDIR /usr/app
+
+COPY . .
+
+RUN pip install cython
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+ENTRYPOINT ["python", "./main.py"]
