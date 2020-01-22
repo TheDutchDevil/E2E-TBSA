@@ -169,7 +169,7 @@ if __name__ == '__main__':
     parser.add_argument("-dim_char_h", type=int, default=50, help="dimension of char hidden representations")
     parser.add_argument("-dim_ote_h", type=int, default=50, help="hidden dimension for opinion target extraction")
     parser.add_argument("-dim_ts_h", type=int, default=50, help="hidden dimension for targeted sentiment")
-    parser.add_argument("-input_win", type=int, default=3, help="window size of input")
+    parser.add_argument("-input_win", type=int, default=1, help="window size of input")
     parser.add_argument("-stm_win", type=int, default=3, help="window size of OE component")
     parser.add_argument("-optimizer", type=str, default="sgd", help="optimizer (or, trainer)")
     parser.add_argument("-n_epoch", type=int, default=40, help="number of training epoch")
