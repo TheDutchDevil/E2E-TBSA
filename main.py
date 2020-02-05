@@ -99,10 +99,10 @@ def run(dataset, model, params):
             else:
                 print("\tExceed: test performance: ts: precision: %.4f, recall: %.4f, micro-f1: %.4f"
                       % (test_ts_scores[1], test_ts_scores[2], test_ts_scores[3]))
-            model_path = './models/%s_%.6lf.model' % (params.ds_name, test_ts_scores[3])
+            model_path = '/models/%s_best.model' % (params.ds_name)
             print("Save the model to %s..." % model_path)
-            if not os.path.exists('./models'):
-                os.mkdir('./models')
+            if not os.path.exists('/models'):
+                os.mkdir('/models')
             model.pc.save(model_path)
     if test_ote_scores:
         final_res_string = "\nBest results obtained at %s: ote f1: %.4f, ts: precision: %.4f, recall: %.4f, " \
@@ -223,7 +223,7 @@ if __name__ == '__main__':
     )
 
     # obtain the pre-trained word embeddings
-    embeddings = load_embeddings(path=emb_path, vocab=vocab, ds_name=ds_name, emb_name=emb_name)
+    embeddings = load_embeddings(path=emb_path, vocab=vocab, emb_name=emb_name)
 
     # obtain the pre-trained character embeddings
     char_embeddings = None

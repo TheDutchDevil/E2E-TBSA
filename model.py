@@ -410,7 +410,7 @@ class Model:
         :param model_name: path of the model parameters
         :return:
         """
-        model_path = './models/%s' % model_name
+        model_path = '/models/%s' % model_name
         if not os.path.exists(model_path):
             raise Exception("Invalid model path %s..." % model_path)
         self.pc.populate(model_path)

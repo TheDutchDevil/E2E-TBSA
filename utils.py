@@ -674,46 +674,33 @@ def build_dataset(ds_name, input_win=1, tagging_schema='BIO', stm_win=1):
     return train_set, val_set, test_set, vocab, char_vocab, ote_tag_vocab, ts_tag_vocab
 
 
-def load_embeddings(path, vocab, ds_name, emb_name):
+def load_embeddings(path, vocab, emb_name):
     """
     load pre-trained word embeddings from the disk
     :param path: absolute path of the embedding files
     :param vocab: vocabulary
-    :param ds_name: name of dataset
     :param emb_name: name of word embedding
     :return:
     """
-    # by default, we employ GloVe 840B word embeddings
-    pkl = './embeddings/%s_%s.pkl' % (ds_name, emb_name)
-    if os.path.exists(pkl):
-        print("Load embeddings from existing pkl file %s..." % pkl)
-        # word embeddings weights have been loaded
-        embeddings = pickle.load(open(pkl, 'rb'))
-    else:
-        print("Load embedding from %s..." % path)
-        raw_embeddings = {}
-        with open(path) as fp:
-            for line in fp:
-                eles = line.strip().split(' ')
-                word = eles[0]
-                if word in vocab:
-                    raw_embeddings[word] = eles[1:]
-        dim_w = len(raw_embeddings['the'])
-        n_words = len(vocab)
-        embeddings = np.zeros(shape=(n_words, dim_w))
-        for w in vocab:
-            wid = vocab[w]
-            if w in raw_embeddings:
-                embeddings[wid] = np.array([float(ele) for ele in raw_embeddings[w]])
-            else:
-                # for OOV words, add random initialization
-                embeddings[wid] = np.random.uniform(-0.25, 0.25, dim_w)
-        print("Find %s word embeddings..." % len(embeddings))
-        if not os.path.exists('./embeddings'):
-            os.mkdir('./embeddings')
-        emb_path = './embeddings/%s_%s.pkl' % (ds_name, emb_name)
-        # write the embedding weights back to the disk
-        pickle.dump(embeddings, open(emb_path, 'wb'))
+    print("Load embedding from %s..." % path)
+    raw_embeddings = {}
+    with open(path) as fp:
+        for line in fp:
+            eles = line.strip().split(' ')
+            word = eles[0]
+            if word in vocab:
+                raw_embeddings[word] = eles[1:]
+    dim_w = len(raw_embeddings['the'])
+    n_words = len(vocab)
+    embeddings = np.zeros(shape=(n_words, dim_w))
+    for w in vocab:
+        wid = vocab[w]
+        if w in raw_embeddings:
+            embeddings[wid] = np.array([float(ele) for ele in raw_embeddings[w]])
+        else:
+            # for OOV words, add random initialization
+            embeddings[wid] = np.random.uniform(-0.25, 0.25, dim_w)
+    print("Find %s word embeddings..." % len(embeddings))
     embeddings = np.array(embeddings, dtype='float32')
     return embeddings
 
